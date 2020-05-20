@@ -33,7 +33,6 @@ class brawlparser:
 
 def parse_single_user(self,tag):
     parsed_logs = []
-#     poss_results = ["victory","defeat"]
     battles = self.client.get_battle_logs(tag)
 
     for battle in battles:
@@ -48,8 +47,7 @@ def parse_single_user(self,tag):
 
             star_player_tag = battle['battle']['star_player']['tag']
             teams           = battle['battle']['teams']
-            our_result      = battle["battle"]["result"]
-#             their_result = poss_results[not poss_results.index(our_result)]
+                  
 
             for team in teams:
                 players = [log['tag'][1:] for log in team]
@@ -72,7 +70,7 @@ def parse_single_user(self,tag):
                             "player_top_brawler": player_brawlers[0]["name"],
                             "star_player": 1 if player["tag"] == star_player_tag else 0,
                             "team": side,
-                            "result": our_result,
+                            "result": battle["battle"]["result"],
                             "brawler_id": player["brawler"]["id"],
                             "brawler_name": player["brawler"]["name"],
                             "brawler_power": player["brawler"]["power"],
